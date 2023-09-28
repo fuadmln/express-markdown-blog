@@ -41,11 +41,21 @@ router.post('/', async (req, res) => {
 
   try{
     const result = await article.save()
-    res.redirect(`/articles/${result.slu}`)
+    res.redirect(`/articles/${result.slug}`)
   } catch (err){
     console.log(err)
     res.render('articles/new', {article: {title, description, markdown}})
   }
+})
+
+router.delete('/:id', async (req, res) => {
+  try{
+    await Article.findByIdAndDelete(req.params.id)
+  } catch (err) {
+    console.log(err)
+  }
+
+  res.redirect('/articles')
 })
 
 module.exports = router
