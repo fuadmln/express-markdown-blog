@@ -11,13 +11,14 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="mb-4">Create New Article</h1>
+    <%- include('_header') %>
+        <div class="container">
+            <h1 class="mb-4">Create New Article</h1>
 
-        <form action="/articles" method="POST">
-            <%- include('_form-fields') %>
-        </form>
-    </div>
+            <form action="/articles" method="POST">
+                <%- include('_form-fields') %>
+            </form>
+        </div>
 </body>
 
 </html>
