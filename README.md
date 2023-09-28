@@ -2,6 +2,14 @@
 
 Web application for writing blog using markdown syntax
 
+**Home Page**
+
+![UI Preview](/_readme_assets/preview.png)
+
+**Show Blog Page**
+
+![UI Preview](/_readme_assets/preview-show.png)
+
 ## Tech Stack
 
 - **Node JS** (v18.18.0)
