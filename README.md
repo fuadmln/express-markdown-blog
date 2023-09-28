@@ -32,3 +32,5 @@ Run Locally
 ```sh
 npm run dev
 ```
+
+You can populate sample article by visiting [localhost:3000/articles/populate](http://localhost:3000/articles/populate)
