@@ -4,13 +4,13 @@ const Article = require('../models/article')
 
 router.get('/', async (req, res) => {
   let articles
+
   try{
-    articles = await Article.find().sort({
-      createdAt: 'desc'
-    })
+    articles = await Article.find().sort({ createdAt: 'desc' })
   } catch(err){
     cosole.log(err.message)
   }
+
   res.render('articles/index', { articles: articles })
 })
 
@@ -20,11 +20,13 @@ router.get('/new', (req, res) => {
 
 router.get('/edit/:id', async (req, res) => {
   let article
+
   try{
     article = await Article.findById(req.params.id)
   } catch (err) {
     res.redirect('/articles')
   }
+  
   res.render('articles/edit', {article: article})
 })
 
@@ -84,36 +86,5 @@ router.delete('/:id', async (req, res) => {
 
   res.redirect('/articles')
 })
-
-// function saveArticleAndRedirect(failPath){
-//   return async (req, res, next) => {
-//     console.log(req.body)
-//     const { title, description, markdown } = req.body
-//     let article = req.article
-
-//     article.title = title
-//     article.decription = description
-//     article.markdown = markdown
-
-//     console.log(req.article)
-//     console.log(article)
-//     res.redirect(`/articles/new`)
-  
-//     // article = new Article({
-//     //   title,
-//     //   description,
-//     //   markdown
-//     // })
-//     // ({ article } = req.body)
-
-//     try{
-//       const result = await article.save()
-//       res.redirect(`/articles/${result.slug}`)
-//     } catch (err){
-//       console.log(err)
-//       res.render(`articles/${failPath}`, {article: {title, description, markdown}})
-//     }
-//   }
-// }
 
 module.exports = router
