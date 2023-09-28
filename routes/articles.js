@@ -2,6 +2,18 @@ const express = require('express')
 const router = express.Router()
 const Article = require('../models/article')
 
+router.get('/', async (req, res) => {
+  let articles
+  try{
+    articles = await Article.find().sort({
+      createdAt: 'desc'
+    })
+  } catch(err){
+    cosole.log(err.message)
+  }
+  res.render('articles/index', { articles: articles })
+})
+
 router.get('/new', (req, res) => {
   res.render('articles/new', {article: new Article()})
 })
