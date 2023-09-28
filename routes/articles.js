@@ -18,10 +18,10 @@ router.get('/new', (req, res) => {
   res.render('articles/new', {article: new Article()})
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:slug', async (req, res) => {
   let article;
   try{
-    article = await Article.findById(req.params.id)
+    article = await Article.findOne({slug: req.params.slug})
   } catch(err) {
     console.log(err.message)
   }
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
 
   try{
     const result = await article.save()
-    res.redirect(`/articles/${result.id}`)
+    res.redirect(`/articles/${result.slu}`)
   } catch (err){
     console.log(err)
     res.render('articles/new', {article: {title, description, markdown}})
