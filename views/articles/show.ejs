@@ -22,7 +22,7 @@
         <a href="/articles/edit/<%= locals.article.id %>" class="btn btn-info">Edit</a>
 
         <div class="mt-4">
-            <%= locals.article.markdown %>
+            <%- locals.article.sanitizedHTML %>
         </div>
     </div>
 </body>
