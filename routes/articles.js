@@ -6,8 +6,16 @@ router.get('/new', (req, res) => {
   res.render('articles/new', {article: new Article()})
 })
 
-router.get('/:id', (req, res) => {
-  res.send(req.params.id)
+router.get('/:id', async (req, res) => {
+  let article;
+  try{
+    article = await Article.findById(req.params.id)
+  } catch(err) {
+    console.log(err.message)
+  }
+
+  if (article == null) res.redirect('/')
+  res.render('articles/show', { article: article})
 })
 
 router.post('/', async (req, res) => {
