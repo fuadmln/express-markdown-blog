@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Article = require('../models/article')
+const sampleArticles = require('../sample-data')
 
 router.get('/', async (req, res) => {
   let articles
@@ -16,6 +17,15 @@ router.get('/', async (req, res) => {
 
 router.get('/new', (req, res) => {
   res.render('articles/new', {article: new Article()})
+})
+
+router.get('/populate', async (req, res) => {
+  try{
+    await Article.create(sampleArticles)
+  } catch(err){
+    console.log(err.message)
+  }
+  res.redirect('/articles')
 })
 
 router.get('/edit/:id', async (req, res) => {
