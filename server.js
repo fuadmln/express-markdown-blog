@@ -2,10 +2,11 @@ const express = require('express')
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
 const articleRouter = require('./routes/articles')
+require('dotenv').config()
 
 const app = express()
 
-mongoose.connect('mongodb://127.0.0.1:27017/expressblog')
+mongoose.connect(process.env.DB_URL)
 db = mongoose.connection
 db.once('open', () => console.log('MongoDB database connection established successfully'))
 db.on('error', (error) => console.error(error))
@@ -17,4 +18,4 @@ app.set('view engine', 'ejs')
 
 app.use('/articles', articleRouter)
 
-app.listen(3000, () => console.log(`Server strated in port 3000`))
+app.listen(process.env.PORT, () => console.log(`Server strated in port ${process.env.PORT}`))
