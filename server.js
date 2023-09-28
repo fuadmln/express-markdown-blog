@@ -9,6 +9,7 @@ db.on('error', (error) => console.error(error))
 
 const articleRouter = require('./routes/articles')
 
+app.use(express.urlencoded({ extended: false}))
 app.set('view engine', 'ejs')
 app.use('/articles', articleRouter)
 
