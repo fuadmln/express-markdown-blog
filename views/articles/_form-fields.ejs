@@ -4,13 +4,11 @@
 </div>
 <div class="form-group">
     <label for="description">Description</label>
-    <textarea class="form-control" name="description" id="description"
-        value="<%= locals.article.description %>"></textarea>
+    <textarea class="form-control" name="description" id="description"><%= locals.article.description %></textarea>
 </div>
 <div class="form-group">
     <label for="markdown">Markdown</label>
-    <textarea class="form-control" name="markdown" id="markdown" value="<%= locals.article.markdown %>"
-        required></textarea>
+    <textarea class="form-control" name="markdown" id="markdown" required><%= locals.article.markdown %></textarea>
 </div>
 <a href="/articles" class="btn btn-secondary">Cancel</a>
 <button type="submit" class="btn btn-primary">Save</button>

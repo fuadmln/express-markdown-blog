@@ -18,6 +18,16 @@ router.get('/new', (req, res) => {
   res.render('articles/new', {article: new Article()})
 })
 
+router.get('/edit/:id', async (req, res) => {
+  let article
+  try{
+    article = await Article.findById(req.params.id)
+  } catch (err) {
+    res.redirect('/articles')
+  }
+  res.render('articles/edit', {article: article})
+})
+
 router.get('/:slug', async (req, res) => {
   let article;
   try{
@@ -48,6 +58,23 @@ router.post('/', async (req, res) => {
   }
 })
 
+router.put('/:id', async (req, res) => {
+  const { title, description, markdown } = req.body
+  let article
+
+  try{
+    article = await Article.findById(req.params.id)
+    article.title = title
+    article.description = description
+    article.markdown = markdown
+    article.save()
+    res.redirect(`/articles/${article.slug}`)
+  } catch (err){
+    console.log(err)
+    res.render(`articles/edit`, {article: {title, description, markdown}})
+  }
+})
+
 router.delete('/:id', async (req, res) => {
   try{
     await Article.findByIdAndDelete(req.params.id)
@@ -57,5 +84,36 @@ router.delete('/:id', async (req, res) => {
 
   res.redirect('/articles')
 })
+
+// function saveArticleAndRedirect(failPath){
+//   return async (req, res, next) => {
+//     console.log(req.body)
+//     const { title, description, markdown } = req.body
+//     let article = req.article
+
+//     article.title = title
+//     article.decription = description
+//     article.markdown = markdown
+
+//     console.log(req.article)
+//     console.log(article)
+//     res.redirect(`/articles/new`)
+  
+//     // article = new Article({
+//     //   title,
+//     //   description,
+//     //   markdown
+//     // })
+//     // ({ article } = req.body)
+
+//     try{
+//       const result = await article.save()
+//       res.redirect(`/articles/${result.slug}`)
+//     } catch (err){
+//       console.log(err)
+//       res.render(`articles/${failPath}`, {article: {title, description, markdown}})
+//     }
+//   }
+// }
 
 module.exports = router
